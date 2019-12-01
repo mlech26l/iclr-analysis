@@ -17,7 +17,7 @@ In particular, **11.79%** of all reviews changed their score during/after the di
 - Average score of a submission **after** discussion: 4.18
 
 
-## How does initial score correlate with updated score
+## How does initial score associate with updated score
 
 ![alt](images/updated_review_ratings_of_1.png)
 ![alt](images/updated_review_ratings_of_3.png)
@@ -25,7 +25,7 @@ In particular, **11.79%** of all reviews changed their score during/after the di
 ![alt](images/updated_review_ratings_of_8.png)
 
 
-## How does a change in score correlate with the experience of the reviewer
+## How does a change in score associate with the experience of the reviewer
 
 | Experience assessment | Number of reviews |  % of reviews that changed score |
 | --- | --- | --- | 
@@ -36,7 +36,7 @@ In particular, **11.79%** of all reviews changed their score during/after the di
 | Overall | 7690 [100%]| 11.79% |
 
 
-## How does a change in score correlate with the thoroughness in paper reading
+## How does a change in score associate with the thoroughness in paper reading
 
 | Thoroughness assessment | Number of reviews | % of reviews that changed score |
 | --- | --- | --- | 
