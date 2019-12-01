@@ -44,6 +44,7 @@ In particular, **11.79%** of all reviews changed their score during/after the di
 | *I made a quick assessment of this paper* | 617 [8.02%] | 9.72% |
 | *I read the paper at least twice and used my best judgement in assessing the paper* | 4156 [54.04%] | 10.35% |
 | *I read the paper thoroughly* | 2742 [35.66%] | 14.33% |
+| Overall | 7690 [100%]| 11.79% |
 
 
 ## Distribution of average score per submission
