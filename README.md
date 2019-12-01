@@ -1,27 +1,74 @@
-# ICLR 2020 and 2019 reviews
+# How did the discussion period affected ICLR 2020's review scores
 
-This repository contains the data of all reviews of ICLR 2019 and ICLR
-2020, crawled using the [OpenReview API](https://github.com/openreview/openreview-py).
-See [my blog](https://bastian.rieck.me/blog/posts/2019/iclr_analysis)
-for more information and plots.
+The ICLR reviewers were allowed to provide one of the following four scores, sometimes also called rating, for each submission:
 
-# Data
+- 1: Reject
+- 3: Weak reject
+- 6: Weak accept
+- 8: Accept
 
-Currently, only data for ICLR 2020 has been provided in a summary data
-format. See [2020.csv](https://github.com/Pseudomanifold/iclr-analysis/blob/master/2020.csv) for more details.
+In contrast to the peer-review process of other conferences, ICLR has a bi-directional communication channel between the authors and the reviewers, in form of a two weeks discussion period.
 
-The folders 'Data/2019' and 'Data/2020' contain *all* reviews of ICLR
-2019 and 2020, respectively. Each folder follows the numerical ID that
-OpenReview assigns to a paper. Each review is provided as a `JSON` file.
+One may ask the question how this discussion period affected the scores of this years' reviews.
 
-# Updating and modifying the data
+In particular, **11.79%** of all reviews changed their score during/after the discussion period.
 
-- Use the script [`get_all_reviews.py`](https://github.com/Pseudomanifold/iclr-analysis/blob/master/get_all_reviews.py) to download all the reviews of a given year. Currently, everything is hard-coded in the script.
+- Average score of a submission **before** discussion: 3.91
+- Average score of a submission **after** discussion: 4.18
 
-- Use the script [`extract_data.py`](https://github.com/Pseudomanifold/iclr-analysis/blob/master/extract_data.py) to extract data from the reviews and create a `CSV` file. This is where most of the magic happens currently. I added a cursory calculation  of NLP metrics but did *not* make use of the resulting values so far.
 
-- Finally, to create the plots from the blog post, use the script
-  [`make_plots.py`](https://github.com/Pseudomanifold/iclr-analysis/blob/master/make_plots.py).
+## How does initial score correlate with updated score
 
-I am actively working on all of these scripts, so stay tuned for
-improved versions.
+![alt](images/updated_review_ratings_of_1.png)
+![alt](images/updated_review_ratings_of_3.png)
+![alt](images/updated_review_ratings_of_6.png)
+![alt](images/updated_review_ratings_of_8.png)
+
+
+## How does a change in score correlate with the experience of the reviewer
+
+| Experience assessment | Number of reviews |  % of reviews that changed score |
+| --- | --- | --- | 
+| 0: *I do not know much about this area* | 1097 [14.27%] | 9.48% |
+| 1: *I have read many papers in this area* |  2521 [32.78%] | 11.15% |
+| 2: *I have published one or two papers in this area* |2636 [34.28%] | 12.97% |
+| 3: *I have published in this field for several years*  | 1436 [18.67%] | 12.53% |
+| Overall | 7690 [100%]| 11.79% |
+
+
+## How does a change in score correlate with the thoroughness in paper reading
+
+| Thoroughness assessment | Number of reviews | % of reviews that changed score |
+| --- | --- | --- | 
+| N/A | 175 [2.28%] | 13.71% |
+| *I made a quick assessment of this paper* | 617 [8.02%] | 9.72% |
+| *I read the paper at least twice and used my best judgement in assessing the paper* | 4156 [54.04%] | 10.35% |
+| *I read the paper thoroughly* | 2742 [35.66%] | 14.33% |
+
+
+## Distribution of average score per submission
+
+### Quantiles 
+
+| Top % of submissions | Initial quantile | Updated quantile | Example |
+| --- | --- | --- | --- |
+80% | 2.3 | 2.3 |  |
+50% | 4.0 | 4.0 |  |
+40% | 4.0 | 4.7 | (3, 3, 8) |
+30% | 4.8 | 5.0 | (3, 6, 6) or (1, 6, 8) |
+25% | 5.0 | 5.7 | (3, 6, 8) or (1, 8, 8) |
+20% | 5.0 | 6.0 |  (6, 6, 6) |
+15% | 5.7 | 6.0 | |
+12.5% | 5.7 | 6.3 | (3, 8, 8) |
+10% | 6.0 | 6.7 | (6, 6, 8) |
+5% | 6.7 | 7.0 | (6, 8, 8) |
+1% | 7.3 | 8.0 | (8, 8, 8) |
+
+
+### Density plot
+
+![alt](images/review_dist.png)
+
+## Reproducibly statement
+
+The scripts in this repo that generate these review statistics are based on the code by [Bastian Rieck](https://github.com/Pseudomanifold/iclr-analysis) (many Thanks for providing user-friendly code and the initial review data). 

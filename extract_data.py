@@ -1,6 +1,5 @@
 import json
 import os
-import textblob
 
 import numpy as np
 import pandas as pd
@@ -14,7 +13,12 @@ experience_to_score = {
     'I have read many papers in this area.': 1,
     'I do not know much about this area.': 0
 }
-
+thoroughness_to_score = {
+    "I read the paper at least twice and used my best judgement in assessing the paper.": 2,
+    "I made a quick assessment of this paper.": 1,
+    "N/A":0,
+    "I read the paper thoroughly.": 3
+}
 
 def extract_data_from_review(review):
 
@@ -27,6 +31,11 @@ def extract_data_from_review(review):
     else:
         confidence = None
 
+    if 'review_assessment:_thoroughness_in_paper_reading' in review:
+        thoroughness = thoroughness_to_score[review['review_assessment:_thoroughness_in_paper_reading']]
+    else:
+        thoroughness = None
+
     if 'experience_assessment' in review:
         experience = experience_to_score[review['experience_assessment']]
     else:
@@ -34,28 +43,17 @@ def extract_data_from_review(review):
 
     n_words = len(review['review'].split())
 
-    blob = textblob.TextBlob(review['review'])
-
-    polarities = []
-    subjectivities = []
-
-    for sentence in blob.sentences:
-        p, s = sentence.sentiment
-
-        polarities.append(p)
-        subjectivities.append(s)
 
     result = {
         'rating': rating,
         'n_words': n_words,
-        'mean_polarity': np.mean(polarities),
-        'sdev_polarity': np.std(polarities),
-        'mean_subjectivity': np.mean(subjectivities),
-        'sdev_subjectivity': np.std(subjectivities)
     }
 
     if confidence is not None:
         result['confidence'] = confidence
+        
+    if thoroughness is not None:
+        result['thoroughness'] = thoroughness
 
     if experience is not None:
         result['experience'] = experience
@@ -78,6 +76,14 @@ for root, dirs, files in os.walk('Data/2020'):
                 row['paper_id'] = os.path.basename(
                     os.path.dirname(
                         os.path.join(root, filename)))
+
+                fname_initial = os.path.join(root.replace("2020","2020_initial"), filename)
+                if(not os.path.isfile(fname_initial)):
+                    continue
+                with open(fname_initial) as f_init:
+                    initial_review = json.load(f_init)
+                    initial_row = extract_data_from_review(initial_review)
+                    row['initial_rating'] = initial_row['rating']
 
                 df = df.append(row, ignore_index=True)
 
